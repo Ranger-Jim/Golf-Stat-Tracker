@@ -10,17 +10,16 @@
         <nav class="navbar">
             <div class="navbar-logo">Golf Stats Tracker</div>
             <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="logStats.html">Log Stats</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="logStats.php">Log Stats</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="register.php">Register</a></li>
             </ul>
         </nav>
     
         <div class="banner-container">
             <div class="banner-overlay">
-                <div class="banner-text">Welcome to Golf Stats Tracker</div>
             </div>
         </div>
     </body>

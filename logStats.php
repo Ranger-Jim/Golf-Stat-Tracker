@@ -10,11 +10,11 @@
         <nav class="navbar">
             <div class="navbar-logo">Golf Stats Tracker</div>
             <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="logStats.html">Log Stats</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="logStats.php">Log Stats</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="register.php">Register</a></li>
             </ul>
         </nav>
     
@@ -24,7 +24,7 @@
         </div>
 
         <div class="log-stats-form">
-            <form action="PHP/stats.php">
+            <form action="PHP/stats.php" method="post">
                 <label for="course-name">Course Name:</label>
                 <input type="text" id="course-name" name="course-name" required><br>
                 <label for="date-played">Date Played:</label>
@@ -149,75 +149,129 @@
                     </tr>
                     <tr>
                         <td>Fairway</td>
-                        <td><input type="checkbox" id="fw1" name="fw1" ></td>
-                        <td><input type="checkbox" id="fw2" name="fw2" ></td>
-                        <td><input type="checkbox" id="fw3" name="fw3" ></td>
-                        <td><input type="checkbox" id="fw4" name="fw4" ></td>
-                        <td><input type="checkbox" id="fw5" name="fw5" ></td>
-                        <td><input type="checkbox" id="fw6" name="fw6" ></td>
-                        <td><input type="checkbox" id="fw7" name="fw7" ></td>
-                        <td><input type="checkbox" id="fw8" name="fw8" ></td>
-                        <td><input type="checkbox" id="fw9" name="fw9" ></td>
+                        <td><select name="fw1" id="fw1"><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw2" name="fw2" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw3" name="fw3" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw4" name="fw4" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw5" name="fw5" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw6" name="fw6" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw7" name="fw7" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw8" name="fw8" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw9" name="fw9" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
                         <td><input type="checkbox" id="fw-out" name="fw-out" ></td>
-                        <td><input type="checkbox" id="fw10" name="fw10" ></td>
-                        <td><input type="checkbox" id="fw11" name="fw11" ></td>
-                        <td><input type="checkbox" id="fw12" name="fw12" ></td>
-                        <td><input type="checkbox" id="fw13" name="fw13" ></td>
-                        <td><input type="checkbox" id="fw14" name="fw14" ></td>
-                        <td><input type="checkbox" id="fw15" name="fw15" ></td>
-                        <td><input type="checkbox" id="fw16" name="fw16" ></td>
-                        <td><input type="checkbox" id="fw17" name="fw17" ></td>
-                        <td><input type="checkbox" id="fw18" name="fw18" ></td>
+                        <td><select id="fw10" name="fw10" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw11" name="fw11" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw12" name="fw12" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw13" name="fw13" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw14" name="fw14" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw15" name="fw15" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw16" name="fw16" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw17" name="fw17" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
+                        <td><select id="fw18" name="fw18" ><option value="n/a">N/A</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                            <option value="straight">Straight</option></select></td>
                         <td><input type="checkbox" id="fw-in" name="fw-in" ></td>
                         <td><input type="checkbox" id="fw-total" name="fw-total" ></td>
                     </tr>
                     <tr>
                         <td>GIR</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><input type="checkbox" id="gir1" name="gir1" ></td>
+                        <td><input type="checkbox" id="gir2" name="gir2" ></td>
+                        <td><input type="checkbox" id="gir3" name="gir3" ></td>
+                        <td><input type="checkbox" id="gir4" name="gir4" ></td>
+                        <td><input type="checkbox" id="gir5" name="gir5" ></td>
+                        <td><input type="checkbox" id="gir6" name="gir6" ></td>
+                        <td><input type="checkbox" id="gir7" name="gir7" ></td>
+                        <td><input type="checkbox" id="gir8" name="gir8" ></td>
+                        <td><input type="checkbox" id="gir9" name="gir9" ></td>
+                        <td><input type="checkbox" id="gir-out" name="gir-out" ></td>
+                        <td><input type="checkbox" id="gir10" name="gir10" ></td>
+                        <td><input type="checkbox" id="gir11" name="gir11" ></td>
+                        <td><input type="checkbox" id="gir12" name="gir12" ></td>
+                        <td><input type="checkbox" id="gir13" name="gir13" ></td>
+                        <td><input type="checkbox" id="gir14" name="gir14" ></td>
+                        <td><input type="checkbox" id="gir15" name="gir15" ></td>
+                        <td><input type="checkbox" id="gir16" name="gir16" ></td>
+                        <td><input type="checkbox" id="gir17" name="gir17" ></td>
+                        <td><input type="checkbox" id="gir18" name="gir18" ></td>
+                        <td><input type="checkbox" id="gir-in" name="gir-in" ></td>
+                        <td><input type="checkbox" id="gir-total" name="gir-total" ></td>
                     </tr>
                     <tr>
                         <td>Putts</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><input type="number" id="putt1" name="putt1" required></td>
+                        <td><input type="number" id="putt2" name="putt2" required></td>
+                        <td><input type="number" id="putt3" name="putt3" required></td>
+                        <td><input type="number" id="putt4" name="putt4" required></td>
+                        <td><input type="number" id="putt5" name="putt5" required></td>
+                        <td><input type="number" id="putt6" name="putt6" required></td>
+                        <td><input type="number" id="putt7" name="putt7" required></td>
+                        <td><input type="number" id="putt8" name="putt8" required></td>
+                        <td><input type="number" id="putt9" name="putt9" required></td>
+                        <td><input type="number" id="putt-out" name="putt-out" required></td>
+                        <td><input type="number" id="putt10" name="putt10" required></td>
+                        <td><input type="number" id="putt11" name="putt11" required></td>
+                        <td><input type="number" id="putt12" name="putt12" required></td>
+                        <td><input type="number" id="putt13" name="putt13" required></td>
+                        <td><input type="number" id="putt14" name="putt14" required></td>
+                        <td><input type="number" id="putt15" name="putt15" required></td>
+                        <td><input type="number" id="putt16" name="putt16" required></td>
+                        <td><input type="number" id="putt17" name="putt17" required></td>
+                        <td><input type="number" id="putt18" name="putt18" required></td>
+                        <td><input type="number" id="putt-in" name="putt-in" required></td>
+                        <td><input type="number" id="putt-total" name="putt-total" required></td>
                     </tr>
                 </table>
                 <button type="submit">Submit</button>
