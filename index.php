@@ -7,16 +7,7 @@
         <title>Golf Stats Tracker</title>
     </head>
     <body>
-        <nav class="navbar">
-            <div class="navbar-logo">Golf Stats Tracker</div>
-            <ul class="navbar-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="logStats.php">Log Stats</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="register.php">Register</a></li>
-            </ul>
-        </nav>
+        <?php include 'include.php'; ?>
 
         <div class="banner-container">
             <div class="banner-overlay">

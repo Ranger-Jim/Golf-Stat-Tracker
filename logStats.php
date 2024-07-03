@@ -1,281 +1,227 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login_page.php");
+    exit();
+}
+
+include 'PHP/db_connection.php';
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch the list of courses from the database
+$courses = [];
+$sql = "SELECT course_id, course_name, tee_color FROM Courses ORDER BY course_name ASC";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $courses[] = $row;
+    }
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="Styles/styles.css">
-        <title>Log Stats</title>
-    </head>
-    <body>
-        <nav class="navbar">
-            <div class="navbar-logo">Golf Stats Tracker</div>
-            <ul class="navbar-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="logStats.php">Log Stats</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="login.php">Login</a></li>
-                <li><a href="register.php">Register</a></li>
-            </ul>
-        </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Styles/styles.css">
+    <title>Log Stats</title>
+</head>
+<body>
+    <?php include 'include.php'; ?>
     
-        <div class="banner-container">
-            <div class="banner-overlay">
-            </div>
-        </div>
+    <div class="banner-container">
+        <div class="banner-overlay"></div>
+    </div>
 
-        <div class="log-stats-form">
-            <form action="PHP/stats.php" method="post">
-                <label for="course-name">Course Name:</label>
-                <input type="text" id="course-name" name="course-name" required><br>
-                <label for="date-played">Date Played:</label>
-                <input type="date" id="date-played" name="date-played" required><br>
-                <table>
-                    <tr>
-                        <th>Hole</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>5</th>
-                        <th>6</th>
-                        <th>7</th>
-                        <th>8</th>
-                        <th>9</th>
-                        <th>Out</th>
-                        <th>10</th>
-                        <th>11</th>
-                        <th>12</th>
-                        <th>13</th>
-                        <th>14</th>
-                        <th>15</th>
-                        <th>16</th>
-                        <th>17</th>
-                        <th>18</th>
-                        <th>In</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr>
-                        <td>Par</td>
-                        <td><label for="par1"></label>
-                            <input type="number" id="par1" name="par1" required></td>
-                        <td><label for="par2"></label>
-                            <input type="number" id="par2" name="par2" required></td>
-                        <td><label for="par3"></label>
-                            <input type="number" id="par3" name="par3" required></td>
-                        <td><label for="par4"></label>
-                            <input type="number" id="par4" name="par4" required></td>
-                        <td><label for="par5"></label>
-                            <input type="number" id="par5" name="par5" required></td>
-                        <td><label for="par6"></label>
-                            <input type="number" id="par6" name="par6" required></td>
-                        <td><label for="par7"></label>
-                            <input type="number" id="par7" name="par7" required></td>
-                        <td><label for="par8"></label>
-                            <input type="number" id="par8" name="par8" required></td>
-                        <td><label for="par9"></label>
-                            <input type="number" id="par9" name="par9" required></td>
-                        <td><label for="par-out"></label>
-                            <input type="number" id="par-out" name="par-out" required></td>
-                        <td><label for="par10"></label>
-                            <input type="number" id="par10" name="par10" required></td>
-                        <td><label for="par11"></label>
-                            <input type="number" id="par11" name="par11" required></td>
-                        <td><label for="par12"></label>
-                            <input type="number" id="par12" name="par12" required></td>
-                        <td><label for="par13"></label>
-                            <input type="number" id="par13" name="par13" required></td>
-                        <td><label for="par14"></label>
-                            <input type="number" id="par14" name="par14" required></td>
-                        <td><label for="par15"></label>
-                            <input type="number" id="par15" name="par15" required></td>
-                        <td><label for="par16"></label>
-                            <input type="number" id="par16" name="par16" required></td>
-                        <td><label for="par17"></label>
-                            <input type="number" id="par17" name="par17" required></td>
-                        <td><label for="par18"></label>
-                            <input type="number" id="par18" name="par18" required></td>
-                        <td><label for="par-in"></label>
-                            <input type="number" id="par-in" name="par-in" required></td>
-                        <td><label for="par-total"></label>
-                            <input type="number" id="par-total" name="par-total" required></td>
-                    </tr>
-                    <tr>
-                        <td>Yardage</td>
-                        <td><input type="number" id="yard1" name="yard1" required></td>
-                        <td><input type="number" id="yard2" name="yard2" required></td>
-                        <td><input type="number" id="yard3" name="yard3" required></td>
-                        <td><input type="number" id="yard4" name="yard4" required></td>
-                        <td><input type="number" id="yard5" name="yard5" required></td>
-                        <td><input type="number" id="yard6" name="yard6" required></td>
-                        <td><input type="number" id="yard7" name="yard7" required></td>
-                        <td><input type="number" id="yard8" name="yard8" required></td>
-                        <td><input type="number" id="yard9" name="yard9" required></td>
-                        <td><input type="number" id="yard-out" name="yard-out" required></td>
-                        <td><input type="number" id="yard10" name="yard10" required></td>
-                        <td><input type="number" id="yard11" name="yard11" required></td>
-                        <td><input type="number" id="yard12" name="yard12" required></td>
-                        <td><input type="number" id="yard13" name="yard13" required></td>
-                        <td><input type="number" id="yard14" name="yard14" required></td>
-                        <td><input type="number" id="yard15" name="yard15" required></td>
-                        <td><input type="number" id="yard16" name="yard16" required></td>
-                        <td><input type="number" id="yard17" name="yard17" required></td>
-                        <td><input type="number" id="yard18" name="yard18" required></td>
-                        <td><input type="number" id="yard-in" name="yard-in" required></td>
-                        <td><input type="number" id="yard-total" name="yard-total" required></td>
-                    </tr>
-                    <tr>
-                        <td>Score</td>
-                        <td><input type="number" id="score1" name="score1" required></td>
-                        <td><input type="number" id="score2" name="score2" required></td>
-                        <td><input type="number" id="score3" name="score3" required></td>
-                        <td><input type="number" id="score4" name="score4" required></td>
-                        <td><input type="number" id="score5" name="score5" required></td>
-                        <td><input type="number" id="score6" name="score6" required></td>
-                        <td><input type="number" id="score7" name="score7" required></td>
-                        <td><input type="number" id="score8" name="score8" required></td>
-                        <td><input type="number" id="score9" name="score9" required></td>
-                        <td><input type="number" id="score-out" name="score-out" required></td>
-                        <td><input type="number" id="score10" name="score10" required></td>
-                        <td><input type="number" id="score11" name="score11" required></td>
-                        <td><input type="number" id="score12" name="score12" required></td>
-                        <td><input type="number" id="score13" name="score13" required></td>
-                        <td><input type="number" id="score14" name="score14" required></td>
-                        <td><input type="number" id="score15" name="score15" required></td>
-                        <td><input type="number" id="score16" name="score16" required></td>
-                        <td><input type="number" id="score17" name="score17" required></td>
-                        <td><input type="number" id="score18" name="score18" required></td>
-                        <td><input type="number" id="score-in" name="score-in" required></td>
-                        <td><input type="number" id="score-total" name="score-total" required></td>
-                    </tr>
-                    <tr>
-                        <td>Fairway</td>
-                        <td><select name="fw1" id="fw1"><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw2" name="fw2" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw3" name="fw3" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw4" name="fw4" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw5" name="fw5" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw6" name="fw6" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw7" name="fw7" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw8" name="fw8" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw9" name="fw9" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><input type="checkbox" id="fw-out" name="fw-out" ></td>
-                        <td><select id="fw10" name="fw10" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw11" name="fw11" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw12" name="fw12" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw13" name="fw13" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw14" name="fw14" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw15" name="fw15" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw16" name="fw16" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw17" name="fw17" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><select id="fw18" name="fw18" ><option value="n/a">N/A</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                            <option value="straight">Straight</option></select></td>
-                        <td><input type="checkbox" id="fw-in" name="fw-in" ></td>
-                        <td><input type="checkbox" id="fw-total" name="fw-total" ></td>
-                    </tr>
-                    <tr>
-                        <td>GIR</td>
-                        <td><input type="checkbox" id="gir1" name="gir1" ></td>
-                        <td><input type="checkbox" id="gir2" name="gir2" ></td>
-                        <td><input type="checkbox" id="gir3" name="gir3" ></td>
-                        <td><input type="checkbox" id="gir4" name="gir4" ></td>
-                        <td><input type="checkbox" id="gir5" name="gir5" ></td>
-                        <td><input type="checkbox" id="gir6" name="gir6" ></td>
-                        <td><input type="checkbox" id="gir7" name="gir7" ></td>
-                        <td><input type="checkbox" id="gir8" name="gir8" ></td>
-                        <td><input type="checkbox" id="gir9" name="gir9" ></td>
-                        <td><input type="checkbox" id="gir-out" name="gir-out" ></td>
-                        <td><input type="checkbox" id="gir10" name="gir10" ></td>
-                        <td><input type="checkbox" id="gir11" name="gir11" ></td>
-                        <td><input type="checkbox" id="gir12" name="gir12" ></td>
-                        <td><input type="checkbox" id="gir13" name="gir13" ></td>
-                        <td><input type="checkbox" id="gir14" name="gir14" ></td>
-                        <td><input type="checkbox" id="gir15" name="gir15" ></td>
-                        <td><input type="checkbox" id="gir16" name="gir16" ></td>
-                        <td><input type="checkbox" id="gir17" name="gir17" ></td>
-                        <td><input type="checkbox" id="gir18" name="gir18" ></td>
-                        <td><input type="checkbox" id="gir-in" name="gir-in" ></td>
-                        <td><input type="checkbox" id="gir-total" name="gir-total" ></td>
-                    </tr>
-                    <tr>
-                        <td>Putts</td>
-                        <td><input type="number" id="putt1" name="putt1" required></td>
-                        <td><input type="number" id="putt2" name="putt2" required></td>
-                        <td><input type="number" id="putt3" name="putt3" required></td>
-                        <td><input type="number" id="putt4" name="putt4" required></td>
-                        <td><input type="number" id="putt5" name="putt5" required></td>
-                        <td><input type="number" id="putt6" name="putt6" required></td>
-                        <td><input type="number" id="putt7" name="putt7" required></td>
-                        <td><input type="number" id="putt8" name="putt8" required></td>
-                        <td><input type="number" id="putt9" name="putt9" required></td>
-                        <td><input type="number" id="putt-out" name="putt-out" required></td>
-                        <td><input type="number" id="putt10" name="putt10" required></td>
-                        <td><input type="number" id="putt11" name="putt11" required></td>
-                        <td><input type="number" id="putt12" name="putt12" required></td>
-                        <td><input type="number" id="putt13" name="putt13" required></td>
-                        <td><input type="number" id="putt14" name="putt14" required></td>
-                        <td><input type="number" id="putt15" name="putt15" required></td>
-                        <td><input type="number" id="putt16" name="putt16" required></td>
-                        <td><input type="number" id="putt17" name="putt17" required></td>
-                        <td><input type="number" id="putt18" name="putt18" required></td>
-                        <td><input type="number" id="putt-in" name="putt-in" required></td>
-                        <td><input type="number" id="putt-total" name="putt-total" required></td>
-                    </tr>
-                </table>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </body>
+    <div class="log-stats-form">
+        <form action="PHP/stats.php" method="post">
+            <label for="course-select">Select Existing Course (optional):</label>
+            <select id="course-select" name="course-id">
+                <option value="">Select a course</option>
+                <?php foreach ($courses as $course): ?>
+                    <option value="<?php echo htmlspecialchars($course['course_id']); ?>">
+                        <?php echo htmlspecialchars($course['course_name'] . " (" . $course['tee_color'] . ")"); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br>
+
+            <div id="new-course-section">
+                <h3>New Course Details</h3>
+                <label for="new-course-name">Course Name:</label>
+                <input type="text" id="new-course-name" name="new-course-name"><br>
+                <label for="new-course-tee-color">Tee Color:</label>
+                <input type="text" id="new-course-tee-color" name="new-course-tee-color"><br>
+            </div>
+
+            <label for="date-played">Date Played:</label>
+            <input type="date" id="date-played" name="date-played" required><br>
+
+            <table>
+                <tr>
+                    <th>Hole</th>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <th><?php echo $i; ?></th>
+                    <?php endfor; ?>
+                    <th>Out</th>
+                    <th>In</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>Par</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="number" id="par<?php echo $i; ?>" name="par<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="par-out" name="par-out" readonly></td>
+                    <td><input type="number" id="par-in" name="par-in" readonly></td>
+                    <td><input type="number" id="par-total" name="par-total" readonly></td>
+                </tr>
+                <tr>
+                    <td>Yardage</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="number" id="yard<?php echo $i; ?>" name="yard<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="yard-out" name="yard-out" readonly></td>
+                    <td><input type="number" id="yard-in" name="yard-in" readonly></td>
+                    <td><input type="number" id="yard-total" name="yard-total" readonly></td>
+                </tr>
+                <tr>
+                    <td>Score</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="number" id="score<?php echo $i; ?>" name="score<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="score-out" name="score-out" readonly></td>
+                    <td><input type="number" id="score-in" name="score-in" readonly></td>
+                    <td><input type="number" id="score-total" name="score-total" readonly></td>
+                </tr>
+                <tr>
+                    <td>Fairways Hit</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="checkbox" id="fw<?php echo $i; ?>" name="fw<?php echo $i; ?>" onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="fw-out" name="fw-out" readonly></td>
+                    <td><input type="number" id="fw-in" name="fw-in" readonly></td>
+                    <td><input type="number" id="fw-total" name="fw-total" readonly></td>
+                </tr>
+                <tr>
+                    <td>GIR</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="checkbox" id="gir<?php echo $i; ?>" name="gir<?php echo $i; ?>" onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="gir-out" name="gir-out" readonly></td>
+                    <td><input type="number" id="gir-in" name="gir-in" readonly></td>
+                    <td><input type="number" id="gir-total" name="gir-total" readonly></td>
+                </tr>
+                <tr>
+                    <td>Putts</td>
+                    <?php for ($i = 1; $i <= 18; $i++): ?>
+                        <td><input type="number" id="putt<?php echo $i; ?>" name="putt<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                    <?php endfor; ?>
+                    <td><input type="number" id="putt-out" name="putt-out" readonly></td>
+                    <td><input type="number" id="putt-in" name="putt-in" readonly></td>
+                    <td><input type="number" id="putt-total" name="putt-total" readonly></td>
+                </tr>
+            </table>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('course-select').addEventListener('change', function() {
+        var courseId = this.value;
+        if (courseId !== "") {
+            // Make an AJAX request to fetch course details
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'PHP/get_course_details.php?course_id=' + courseId, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var courseDetails = JSON.parse(xhr.responseText);
+                    // Populate the form fields with the course details
+                    document.getElementById('new-course-name').value = courseDetails.course_name;
+                    document.getElementById('new-course-tee-color').value = courseDetails.tee_color;
+
+                    for (var i = 1; i <= 18; i++) {
+                        document.getElementById('par' + i).value = courseDetails['hole' + i + '_par'];
+                        document.getElementById('yard' + i).value = courseDetails['hole' + i + '_yardage'];
+                    }
+
+                    calculateTotals();
+
+                    // Hide the new course section
+                    document.getElementById('new-course-section').style.display = 'none';
+                }
+            };
+            xhr.send();
+        } else {
+            // Show the new course section if no existing course is selected
+            document.getElementById('new-course-section').style.display = 'block';
+        }
+    });
+
+    function calculateTotals() {
+        let parOut = 0;
+        let parIn = 0;
+        let yardOut = 0;
+        let yardIn = 0;
+        let scoreOut = 0;
+        let scoreIn = 0;
+        let fairwaysOut = 0;
+        let fairwaysIn = 0;
+        let girOut = 0;
+        let girIn = 0;
+        let puttsOut = 0;
+        let puttsIn = 0;
+
+        for (let i = 1; i <= 9; i++) {
+            parOut += parseInt(document.getElementById('par' + i).value) || 0;
+            yardOut += parseInt(document.getElementById('yard' + i).value) || 0;
+            scoreOut += parseInt(document.getElementById('score' + i).value) || 0;
+            fairwaysOut += document.getElementById('fw' + i).checked ? 1 : 0;
+            girOut += document.getElementById('gir' + i).checked ? 1 : 0;
+            puttsOut += parseInt(document.getElementById('putt' + i).value) || 0;
+        }
+
+        for (let i = 10; i <= 18; i++) {
+            parIn += parseInt(document.getElementById('par' + i).value) || 0;
+            yardIn += parseInt(document.getElementById('yard' + i).value) || 0;
+            scoreIn += parseInt(document.getElementById('score' + i).value) || 0;
+            fairwaysIn += document.getElementById('fw' + i).checked ? 1 : 0;
+            girIn += document.getElementById('gir' + i).checked ? 1 : 0;
+            puttsIn += parseInt(document.getElementById('putt' + i).value) || 0;
+        }
+
+        document.getElementById('par-out').value = parOut;
+        document.getElementById('par-in').value = parIn;
+        document.getElementById('par-total').value = parOut + parIn;
+
+        document.getElementById('yard-out').value = yardOut;
+        document.getElementById('yard-in').value = yardIn;
+        document.getElementById('yard-total').value = yardOut + yardIn;
+
+        document.getElementById('score-out').value = scoreOut;
+        document.getElementById('score-in').value = scoreIn;
+        document.getElementById('score-total').value = scoreOut + scoreIn;
+
+        document.getElementById('fw-out').value = fairwaysOut;
+        document.getElementById('fw-in').value = fairwaysIn;
+        document.getElementById('fw-total').value = fairwaysOut + fairwaysIn;
+
+        document.getElementById('gir-out').value = girOut;
+        document.getElementById('gir-in').value = girIn;
+        document.getElementById('gir-total').value = girOut + girIn;
+
+        document.getElementById('putt-out').value = puttsOut;
+        document.getElementById('putt-in').value = puttsIn;
+        document.getElementById('putt-total').value = puttsOut + puttsIn;
+    }
+
+    // Attach the calculateTotals function to the form fields for dynamic updates
+    document.querySelectorAll('input[type="number"], input[type="checkbox"]').forEach(function(input) {
+        input.addEventListener('change', calculateTotals);
+    });
+    </script>
+</body>
 </html>
