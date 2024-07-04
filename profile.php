@@ -9,6 +9,12 @@ include 'PHP/db_connection.php';
 
 $user_id = $_SESSION['user_id'];
 
+// Initialize variables
+$average_score = 0;
+$fairways_hit_percentage = 0;
+$gir_percentage = 0;
+$average_putts = 0;
+
 // Fetch the user's rounds
 $sql = "SELECT Rounds.*, Courses.course_name FROM Rounds INNER JOIN Courses ON Rounds.course_id = Courses.course_id WHERE Rounds.user_id = ?";
 $stmt = $conn->prepare($sql);
@@ -17,11 +23,34 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $rounds = [];
+$total_score = 0;
+$total_fairways_hit = 0;
+$total_gir = 0;
+$total_putts = 0;
+$round_count = 0;
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $rounds[] = $row;
+        $total_score += $row['total_score'];
+        $total_fairways_hit += $row['total_fairways_hit'];
+        $total_gir += $row['total_gir'];
+        $total_putts += $row['total_putts'];
+        $round_count++;
     }
 }
+
+// Calculate averages
+if ($round_count > 0) {
+    $average_score = round($total_score / $round_count, 2);
+    $fairways_hit_percentage = round(($total_fairways_hit / ($round_count * 18)) * 100, 2); // assuming 18 holes per round
+    $gir_percentage = round(($total_gir / ($round_count * 18)) * 100, 2); // assuming 18 holes per round
+    $average_putts = round($total_putts / $round_count, 2);
+}
+
+// Fetch the last 10 rounds played
+$recent_rounds = array_slice($rounds, -10);
+
 $stmt->close();
 $conn->close();
 ?>
@@ -42,35 +71,62 @@ $conn->close();
     </div>
 
     <div class="profile-container">
-        <h2>Your Rounds</h2>
-        <?php if (empty($rounds)): ?>
-            <p>No rounds found.</p>
-        <?php else: ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Course</th>
-                        <th>Total Score</th>
-                        <th>Total Fairways Hit</th>
-                        <th>Total GIR</th>
-                        <th>Total Putts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rounds as $round): ?>
+        <!-- Statistics Overview -->
+        <div class="stats-overview">
+            <h2>Statistics Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>Average Score</h3>
+                    <p><?php echo htmlspecialchars($average_score); ?></p>
+                </div>
+                <div class="stat-item">
+                    <h3>Fairways Hit (%)</h3>
+                    <p><?php echo htmlspecialchars($fairways_hit_percentage); ?></p>
+                </div>
+                <div class="stat-item">
+                    <h3>GIR (%)</h3>
+                    <p><?php echo htmlspecialchars($gir_percentage); ?></p>
+                </div>
+                <div class="stat-item">
+                    <h3>Average Putts</h3>
+                    <p><?php echo htmlspecialchars($average_putts); ?></p>
+                </div>
+                <!-- Add more stat items as needed -->
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="recent-activities">
+            <h2>Recent Activities</h2>
+            <?php if (empty($recent_rounds)): ?>
+                <p>No rounds found.</p>
+            <?php else: ?>
+                <table class="profile-table">
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($round['date']); ?></td>
-                            <td><?php echo htmlspecialchars($round['course_name']); ?></td>
-                            <td><?php echo htmlspecialchars($round['total_score']); ?></td>
-                            <td><?php echo htmlspecialchars($round['total_fairways_hit']); ?></td>
-                            <td><?php echo htmlspecialchars($round['total_gir']); ?></td>
-                            <td><?php echo htmlspecialchars($round['total_putts']); ?></td>
+                            <th>Date</th>
+                            <th>Course</th>
+                            <th>Total Score</th>
+                            <th>Total Fairways Hit</th>
+                            <th>Total GIR</th>
+                            <th>Total Putts</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($recent_rounds as $round): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($round['date']); ?></td>
+                                <td><?php echo htmlspecialchars($round['course_name']); ?></td>
+                                <td><?php echo htmlspecialchars($round['total_score']); ?></td>
+                                <td><?php echo htmlspecialchars($round['total_fairways_hit']); ?></td>
+                                <td><?php echo htmlspecialchars($round['total_gir']); ?></td>
+                                <td><?php echo htmlspecialchars($round['total_putts']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>

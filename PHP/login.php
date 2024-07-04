@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             echo "No user found with that username.";
+            header("Location: ../login_page.php");
         }
 
         // Close the statement

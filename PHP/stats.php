@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Calculate total stats
     $total_score = array_sum(array_map(function($i) { return $_POST["score$i"]; }, range(1, 18)));
-    $total_fairways_hit = array_sum(array_map(function($i) { return isset($_POST["fw$i"]) ? 1 : 0; }, range(1, 18)));
+    $total_fairways_hit = array_sum(array_map(function($i) { return $_POST["par$i"] == 3 ? 0 : (isset($_POST["fw$i"]) ? 1 : 0); }, range(1, 18)));
     $total_gir = array_sum(array_map(function($i) { return isset($_POST["gir$i"]) ? 1 : 0; }, range(1, 18)));
     $total_putts = array_sum(array_map(function($i) { return $_POST["putt$i"]; }, range(1, 18)));
 
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     for ($i = 1; $i <= 18; $i++) {
         $score = $_POST["score$i"];
-        $fairways_hit = isset($_POST["fw$i"]) ? 1 : 0;
+        $fairways_hit = $_POST["par$i"] == 3 ? NULL : (isset($_POST["fw$i"]) ? 1 : 0);
         $gir = isset($_POST["gir$i"]) ? 1 : 0;
         $putts = $_POST["putt$i"];
         $stmt->bind_param("iiiiii", $round_id, $i, $score, $fairways_hit, $gir, $putts);
