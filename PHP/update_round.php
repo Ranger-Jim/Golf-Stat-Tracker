@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $round_id = $_POST['round_id'];
     $course_id = $_POST['course-id'];
     $user_id = $_SESSION['user_id'];
     $date_played = $_POST['date-played'];
@@ -90,45 +91,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $total_gir = array_sum(array_map(function($i) { return isset($_POST["gir$i"]) ? 1 : 0; }, range(1, 18)));
     $total_putts = array_sum(array_map(function($i) { return $_POST["putt$i"]; }, range(1, 18)));
 
-    // Insert round data
-    $sql = "INSERT INTO Rounds (user_id, course_id, date, total_score, total_fairways_hit, total_gir, total_putts) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Update round data
+    $sql = "UPDATE Rounds SET course_id = ?, date = ?, total_score = ?, total_fairways_hit = ?, total_gir = ?, total_putts = ? WHERE round_id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
         die("Error preparing the statement for round data: " . $conn->error);
     }
 
-    $stmt->bind_param("iisiiii", $user_id, $course_id, $date_played, $total_score, $total_fairways_hit, $total_gir, $total_putts);
+    $stmt->bind_param("isiiiii", $course_id, $date_played, $total_score, $total_fairways_hit, $total_gir, $total_putts, $round_id);
 
     if ($stmt->execute()) {
-        $round_id = $stmt->insert_id;
+        $stmt->close();
+
+        // Update hole stats
+        $sql = "UPDATE HoleStats SET score = ?, fairways_hit = ?, gir = ?, putts = ? WHERE round_id = ? AND hole_number = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error preparing the statement for hole stats: " . $conn->error);
+        }
+
+        for ($i = 1; $i <= 18; $i++) {
+            $score = $_POST["score$i"];
+            $fairways_hit = $_POST["par$i"] == 3 ? NULL : (isset($_POST["fw$i"]) ? 1 : 0);
+            $gir = isset($_POST["gir$i"]) ? 1 : 0;
+            $putts = $_POST["putt$i"];
+            $stmt->bind_param("iiiiii", $score, $fairways_hit, $gir, $putts, $round_id, $i);
+
+            if (!$stmt->execute()) {
+                die("Error executing the statement for hole $i: " . $stmt->error);
+            }
+        }
+
+        $stmt->close();
+        header("Location: ../profile.php");
+        exit();
     } else {
         die("Error executing the statement for round data: " . $stmt->error);
     }
-
-    $stmt->close();
-
-    // Insert hole stats
-    $sql = "INSERT INTO HoleStats (round_id, hole_number, score, fairways_hit, gir, putts) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die("Error preparing the statement for hole stats: " . $conn->error);
-    }
-
-    for ($i = 1; $i <= 18; $i++) {
-        $score = $_POST["score$i"];
-        $fairways_hit = $_POST["par$i"] == 3 ? NULL : (isset($_POST["fw$i"]) ? 1 : 0);
-        $gir = isset($_POST["gir$i"]) ? 1 : 0;
-        $putts = $_POST["putt$i"];
-        $stmt->bind_param("iiiiii", $round_id, $i, $score, $fairways_hit, $gir, $putts);
-
-        if (!$stmt->execute()) {
-            die("Error executing the statement for hole $i: " . $stmt->error);
-        }
-    }
-
-    $stmt->close();
-    header("Location:../profile.php");
-    exit();
 }
 
 $conn->close();
