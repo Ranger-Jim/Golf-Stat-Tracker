@@ -1,9 +1,9 @@
 <?php
-$servername = "192.168.1.160";
+$servername = "161.35.58.67";
 $port = 3306;
-$username = "jdonohue";
-$password = "Annapolis92!";
-$dbname = "golf_stats_tracker";
+$username = "james";
+$password = "Baltimore92!";
+$dbname = "golf_stats";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
