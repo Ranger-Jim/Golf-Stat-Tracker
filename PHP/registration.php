@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");// '?' are placeholders for the values
+        $stmt = $conn->prepare("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)");// '?' are placeholders for the values
 
         if ($stmt === false) {
             die("Error preparing the statement: " . $conn->error);
