@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($username && $password) {
         // Prepare and bind
-        $stmt = $conn->prepare("SELECT user_id, username, password FROM Users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
         
         if ($stmt === false) {
             die("Error preparing the statement: " . $conn->error);
