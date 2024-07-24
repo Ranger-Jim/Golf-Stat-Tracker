@@ -11,8 +11,7 @@ body, ul, li, a {
     box-sizing: border-box;
 }
 
-/****Navbar Styling****/
-
+/**** Navbar Styling ****/
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -48,8 +47,7 @@ body, ul, li, a {
     background-color: #ddd;
 }
 
-/****BANNER STYLING****/
-
+/**** Banner Styling ****/
 .banner-container {
     position: relative;
     width: 100%;
@@ -71,8 +69,7 @@ body, ul, li, a {
     align-items: center;
 }
 
-/****FORM STYLING****/
-
+/**** Form Styling ****/
 h2 {
     margin-bottom: 20px;
     font-size: 1.5em;
@@ -114,71 +111,68 @@ button:hover {
     background-color: #4cae4c;
 }
 
-/****HOME PAGE****/
-
-.welcome {
-    padding: 10px;
-    max-width: 100%;
-    line-height: 1.5;
-    border-bottom: 2px solid black;
-    text-align: center;
-}
-
-.welcome p {
-    width: 40%;
-    margin: 0 auto;
-}
-
-.mission {
+/**** Home Page ****/
+.welcome, .mission, .container, .contact {
     padding: 10px;
     max-width: 100%;
     line-height: 1.5;
     text-align: center;
 }
 
-.mission p {
+.welcome p, .mission p, .contact p {
     max-width: 40%;
     margin: 0 auto;
 }
 
 .container {
-    padding: 20px;
-    max-width: 100%;
-    line-height: 1.5;
-    border-bottom: 2px solid black;
-    text-align: center;
     display: flex;
     justify-content: space-between;
 }
 
-.our-goals {
+.our-goals, .our-values {
     text-align: center;
     max-width: 38%;
-    margin-left: 10pc;
     line-height: 1.5;
 }
 
-.our-values {
-    text-align: center;
-    max-width: 38%;
-    margin-right: 10pc;
-    line-height: 1.5;
+@media (max-width: 767px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-links li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .banner-container {
+        height: 300px;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+
+    .welcome p, .mission p, .contact p {
+        max-width: 80%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .our-goals, .our-values {
+        max-width: 80%;
+        margin: 20px auto;
+    }
 }
 
-.contact {
-    padding: 20px;
-    max-width: 100%;
-    line-height: 1.5;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.contact p {
-    max-width: 40%;
-    margin: 0 auto;
-}
-
-/****LOG STATS PAGE****/
+/**** Log Stats Page ****/
 .log-stats-form {
     max-width: 80%;
     padding: 20px;
@@ -187,7 +181,7 @@ button:hover {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-x: auto;
 }
 
 .log-stats-form h3 {
@@ -201,7 +195,9 @@ button:hover {
     margin-right: 10px;
 }
 
-.log-stats-form input[type="text"], input[type="date"], select {
+.log-stats-form input[type="text"],
+input[type="date"],
+select {
     width: 50%;
     padding: 10px;
     margin-bottom: 16px;
@@ -214,14 +210,15 @@ button:hover {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    table-layout: fixed; /* Fixed layout for table */
+    table-layout: fixed;
 }
 
-.log-stats-form th, .log-stats-form td {
+.log-stats-form th,
+.log-stats-form td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-    word-wrap: break-word; /* Allow word wrapping */
+    word-wrap: break-word;
 }
 
 .log-stats-form th {
@@ -231,28 +228,27 @@ button:hover {
 
 .log-stats-form th:first-child,
 .log-stats-form td:first-child {
-    width: 100px; /* Increase the width of the first column */
+    width: 100px;
 }
 
-/* Adjust the width of the last three columns */
 .log-stats-form th:nth-last-child(3),
 .log-stats-form td:nth-last-child(3),
 .log-stats-form th:nth-last-child(2),
 .log-stats-form td:nth-last-child(2),
 .log-stats-form th:last-child,
 .log-stats-form td:last-child {
-    width: 80px; /* Adjust width as needed */
+    width: 80px;
 }
 
-/* Adjust the width of input boxes in the last three columns */
 .log-stats-form td:nth-last-child(3) input[type="number"],
 .log-stats-form td:nth-last-child(2) input[type="number"],
 .log-stats-form td:last-child input[type="number"] {
-    width: 50px; /* Adjust width as needed */
+    width: 50px;
 }
 
-.log-stats-form input[type="number"], input[type="checkbox"] {
-    width: 40px; /* Reduce width to balance table */
+.log-stats-form input[type="number"],
+input[type="checkbox"] {
+    width: 40px;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -263,22 +259,7 @@ button:hover {
     background-color: #f9f9f9;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #5cb85c;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #4cae4c;
-}
-
-/****PROFILE PAGE****/
+/**** Profile Page ****/
 .profile-container {
     max-width: 80%;
     margin: 0 auto;
@@ -337,7 +318,8 @@ button:hover {
     margin-top: 20px;
 }
 
-.profile-table th, .profile-table td {
+.profile-table th,
+.profile-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -365,4 +347,28 @@ button {
 
 button:hover {
     background-color: #4cae4c;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 767px) {
+    .log-stats-form input[type="text"],
+    .log-stats-form input[type="date"],
+    .log-stats-form select,
+    .log-stats-form input[type="number"],
+    .log-stats-form input[type="checkbox"] {
+        width: 100%;
+    }
+
+    .stats-grid {
+        flex-direction: column;
+    }
+
+    .stat-item {
+        flex: 1 1 100%;
+    }
+
+    .profile-table th,
+    .profile-table td {
+        padding: 4px;
+    }
 }
