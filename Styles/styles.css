@@ -248,7 +248,7 @@ select {
 
 .log-stats-form input[type="number"],
 input[type="checkbox"] {
-    width: 40px;
+    width: 30px;
     margin: 0;
     padding: 0;
     text-align: center;
