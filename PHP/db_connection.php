@@ -2,7 +2,7 @@
 $servername = "161.35.58.67";
 $port = 3306;
 $username = "james";
-$password = "Baltimore92";
+$password = "Baltimore92!";
 $dbname = "golf_stats";
 
 // Create connection
