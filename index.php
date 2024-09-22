@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="Styles/styles.css">
-        <title>Golf Stats Tracker</title>
+        <title>Golf Stats Guru</title>
     </head>
     <body>
         <?php include 'include.php'; ?>
@@ -15,10 +15,10 @@
         </div>
         
         <div class="welcome">
-            <h1>Welcome to Golf Stats Tracker</h1>
+            <h1>Welcome to Golf Stat Guru</h1>
             <p class="welcome-message">
-                Welcome to Golf Stat Tracker, your ultimate companion for tracking and analyzing your golf performance. 
-                Whether you're a seasoned pro or just starting out, 
+                Welcome to Golf Stat Guru, your ultimate companion for tracking and analyzing your golf performance. 
+                Whether you're a seasoned pro or just starting out,
                 our platform is designed to help you improve your game and enjoy golf even more.
             </p>
         </div>
@@ -26,7 +26,7 @@
         <div class="mission">
             <h2>Our Mission</h2>
             <p>
-                At Golf Stat Tracker, our mission is to empower golfers of all skill levels to improve their game by providing 
+                At Golf Stat Guru, our mission is to empower golfers of all skill levels to improve their game by providing 
                 an intuitive and comprehensive platform for tracking and analyzing golf statistics. We aim to deliver a 
                 user-friendly experience that helps golfers understand their strengths and areas for improvement, 
                 ultimately enhancing their enjoyment of the game.
