@@ -60,71 +60,74 @@ $conn->close();
             <label for="date-played">Date Played:</label>
             <input type="date" id="date-played" name="date-played" required><br>
 
-            <table>
-                <tr>
-                    <th>Hole</th>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <th><?php echo $i; ?></th>
-                    <?php endfor; ?>
-                    <th>Out</th>
-                    <th>In</th>
-                    <th>Total</th>
-                </tr>
-                <tr>
-                    <td>Par</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="number" id="par<?php echo $i; ?>" name="par<?php echo $i; ?>" required onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="par-out" name="par-out" readonly></td>
-                    <td><input type="number" id="par-in" name="par-in" readonly></td>
-                    <td><input type="number" id="par-total" name="par-total" readonly></td>
-                </tr>
-                <tr>
-                    <td>Yardage</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="number" id="yard<?php echo $i; ?>" name="yard<?php echo $i; ?>" required onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="yard-out" name="yard-out" readonly></td>
-                    <td><input type="number" id="yard-in" name="yard-in" readonly></td>
-                    <td><input type="number" id="yard-total" name="yard-total" readonly></td>
-                </tr>
-                <tr>
-                    <td>Score</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="number" id="score<?php echo $i; ?>" name="score<?php echo $i; ?>" required onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="score-out" name="score-out" readonly></td>
-                    <td><input type="number" id="score-in" name="score-in" readonly></td>
-                    <td><input type="number" id="score-total" name="score-total" readonly></td>
-                </tr>
-                <tr>
-                    <td>Fairways Hit</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="checkbox" id="fw<?php echo $i; ?>" name="fw<?php echo $i; ?>" onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="fw-out" name="fw-out" readonly></td>
-                    <td><input type="number" id="fw-in" name="fw-in" readonly></td>
-                    <td><input type="number" id="fw-total" name="fw-total" readonly></td>
-                </tr>
-                <tr>
-                    <td>GIR</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="checkbox" id="gir<?php echo $i; ?>" name="gir<?php echo $i; ?>" onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="gir-out" name="gir-out" readonly></td>
-                    <td><input type="number" id="gir-in" name="gir-in" readonly></td>
-                    <td><input type="number" id="gir-total" name="gir-total" readonly></td>
-                </tr>
-                <tr>
-                    <td>Putts</td>
-                    <?php for ($i = 1; $i <= 18; $i++): ?>
-                        <td><input type="number" id="putt<?php echo $i; ?>" name="putt<?php echo $i; ?>" required onchange="calculateTotals()"></td>
-                    <?php endfor; ?>
-                    <td><input type="number" id="putt-out" name="putt-out" readonly></td>
-                    <td><input type="number" id="putt-in" name="putt-in" readonly></td>
-                    <td><input type="number" id="putt-total" name="putt-total" readonly></td>
-                </tr>
-            </table>
+            <!-- Wrap the table in a scrollable container -->
+            <div class="scrollable-table">
+                <table>
+                    <tr>
+                        <th>Hole</th>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <th><?php echo $i; ?></th>
+                        <?php endfor; ?>
+                        <th>Out</th>
+                        <th>In</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Par</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="number" id="par<?php echo $i; ?>" name="par<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="par-out" name="par-out" readonly></td>
+                        <td><input type="number" id="par-in" name="par-in" readonly></td>
+                        <td><input type="number" id="par-total" name="par-total" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Yardage</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="number" id="yard<?php echo $i; ?>" name="yard<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="yard-out" name="yard-out" readonly></td>
+                        <td><input type="number" id="yard-in" name="yard-in" readonly></td>
+                        <td><input type="number" id="yard-total" name="yard-total" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Score</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="number" id="score<?php echo $i; ?>" name="score<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="score-out" name="score-out" readonly></td>
+                        <td><input type="number" id="score-in" name="score-in" readonly></td>
+                        <td><input type="number" id="score-total" name="score-total" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Fairways Hit</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="checkbox" id="fw<?php echo $i; ?>" name="fw<?php echo $i; ?>" onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="fw-out" name="fw-out" readonly></td>
+                        <td><input type="number" id="fw-in" name="fw-in" readonly></td>
+                        <td><input type="number" id="fw-total" name="fw-total" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>GIR</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="checkbox" id="gir<?php echo $i; ?>" name="gir<?php echo $i; ?>" onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="gir-out" name="gir-out" readonly></td>
+                        <td><input type="number" id="gir-in" name="gir-in" readonly></td>
+                        <td><input type="number" id="gir-total" name="gir-total" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Putts</td>
+                        <?php for ($i = 1; $i <= 18; $i++): ?>
+                            <td><input type="number" id="putt<?php echo $i; ?>" name="putt<?php echo $i; ?>" required onchange="calculateTotals()"></td>
+                        <?php endfor; ?>
+                        <td><input type="number" id="putt-out" name="putt-out" readonly></td>
+                        <td><input type="number" id="putt-in" name="putt-in" readonly></td>
+                        <td><input type="number" id="putt-total" name="putt-total" readonly></td>
+                    </tr>
+                </table>
+            </div>
 
                     <!--This is the input to be submitted to the handler to count the par 3's
                     to later be used when calculating the fairways hit -->

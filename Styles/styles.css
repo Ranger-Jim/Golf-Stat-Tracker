@@ -174,7 +174,7 @@ button:hover {
 
 /**** Log Stats Page ****/
 .log-stats-form {
-    max-width: 100%;  /* Changed from 80% to 100% */
+    max-width: 100%;  /* Ensure the form takes the full width of the container */
     padding: 20px;
     margin: 0 auto;
     text-align: center;
@@ -198,7 +198,7 @@ button:hover {
 .log-stats-form input[type="text"],
 input[type="date"],
 select {
-    width: 100%;  /* Changed from 50% to 100% */
+    width: 80%;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
@@ -206,19 +206,22 @@ select {
     box-sizing: border-box;
 }
 
+/* Force the table to scroll horizontally by setting a larger width */
 .log-stats-form table {
-    width: 100%;
+    min-width: 1200px;  /* Minimum width to force horizontal scrolling */
+    width: auto;
     margin-top: 20px;
     border-collapse: collapse;
-    table-layout: fixed; /* Fixed layout for table */
+    table-layout: fixed;  /* Table layout is fixed, so columns keep their widths */
 }
 
-.log-stats-form th,
-.log-stats-form td {
+.log-stats-form th, .log-stats-form td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-    word-wrap: break-word; /* Allow word wrapping */
+    word-wrap: break-word;  /* Allow word wrapping */
+    width: 80px;
+    min-width: 80px;
 }
 
 .log-stats-form th {
@@ -248,10 +251,11 @@ select {
 
 .log-stats-form input[type="number"],
 input[type="checkbox"] {
-    width: 30px;
+    width: 50px;
     margin: 0;
     padding: 0;
     text-align: center;
+    min-width: 50px;
 }
 
 .log-stats-form .totals {
@@ -386,4 +390,31 @@ button:hover {
     .profile-table td {
         padding: 4px;
     }
+
+    .scrollable-table {
+        width: 100%; /* Make sure the scrollable div fits within the screen */
+    }
+}
+
+/* This is for the scrollable table when logging stats */
+.scrollable-table {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping inside the table */
+}
+
+.scrollable-table table {
+    width: 100%; /* Ensure table takes full width */
+    border-collapse: collapse; /* Makes the table look cleaner */
+}
+
+.scrollable-table th, .scrollable-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    min-width: 80px;
+}
+
+/* Make the out, in, and total columns slightly wider */
+.scrollable-table th:nth-last-child(-n+3), .scrollable-table td:nth-last-child(-n+3) {
+    min-width: 100px; /* Out, In, and Total columns */
 }
