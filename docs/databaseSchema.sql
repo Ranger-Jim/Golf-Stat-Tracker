@@ -1,0 +1,80 @@
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(100) NOT NULL,
+    tee_color VARCHAR(50) NOT NULL,
+    hole1_yardage INT NOT NULL,
+    hole2_yardage INT NOT NULL,
+    hole3_yardage INT NOT NULL,
+    hole4_yardage INT NOT NULL,
+    hole5_yardage INT NOT NULL,
+    hole6_yardage INT NOT NULL,
+    hole7_yardage INT NOT NULL,
+    hole8_yardage INT NOT NULL,
+    hole9_yardage INT NOT NULL,
+    hole10_yardage INT NOT NULL,
+    hole11_yardage INT NOT NULL,
+    hole12_yardage INT NOT NULL,
+    hole13_yardage INT NOT NULL,
+    hole14_yardage INT NOT NULL,
+    hole15_yardage INT NOT NULL,
+    hole16_yardage INT NOT NULL,
+    hole17_yardage INT NOT NULL,
+    hole18_yardage INT NOT NULL,
+    total_yardage INT NOT NULL,
+    hole1_par INT NOT NULL,
+    hole2_par INT NOT NULL,
+    hole3_par INT NOT NULL,
+    hole4_par INT NOT NULL,
+    hole5_par INT NOT NULL,
+    hole6_par INT NOT NULL,
+    hole7_par INT NOT NULL,
+    hole8_par INT NOT NULL,
+    hole9_par INT NOT NULL,
+    front9_par INT NOT NULL,
+    hole10_par INT NOT NULL,
+    hole11_par INT NOT NULL,
+    hole12_par INT NOT NULL,
+    hole13_par INT NOT NULL,
+    hole14_par INT NOT NULL,
+    hole15_par INT NOT NULL,
+    hole16_par INT NOT NULL,
+    hole17_par INT NOT NULL,
+    hole18_par INT NOT NULL,
+    back9_par INT NOT NULL,
+    total_par INT NOT NULL,
+    par3_count INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Rounds (
+    round_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    date DATE NOT NULL,
+    total_score INT NOT NULL,
+    total_fairways_hit INT NOT NULL,
+    total_gir INT NOT NULL,
+    total_putts INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+
+CREATE TABLE HoleStats (
+    holestats_id INT AUTO_INCREMENT PRIMARY KEY,
+    round_id INT NOT NULL,
+    hole_number INT NOT NULL,
+    score INT NOT NULL,
+    fairways_hit INT,
+    gir INT NOT NULL,
+    putts INT NOT NULL,
+    FOREIGN KEY (round_id) REFERENCES Rounds(round_id)
+);
