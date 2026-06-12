@@ -1,8 +1,8 @@
 <?php
-$servername = "161.35.58.67";
+$servername = "localhost";
 $port = 3306;
-$username = "james";
-$password = "Baltimore92!";
+$username = "root";
+$password = "password";
 $dbname = "golf_stats";
 
 // Create connection
