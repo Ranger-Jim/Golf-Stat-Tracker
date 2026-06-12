@@ -5,6 +5,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const db = require('./db');
+
+//routing
+const coursesRouter = require('./routes/courses');
+app.use('/api/courses', coursesRouter);
+
 app.get('/search', async (req, res) => {
   const query = req.query.q; // ex. /search?q=pb+dye
 
@@ -30,7 +36,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
-const db = require('./db');
+
 
 app.get('/test-db', async (req, res) => {
   try {
