@@ -4,12 +4,14 @@ const express = require('express');
 
 const app = express();
 const port = 3000;
+app.use(express.json());
 
 const db = require('./db');
 
 //routing
-const coursesRouter = require('./routes/courses');
-app.use('/api/courses', coursesRouter);
+app.use('/api/courses', require('./routes/courses'));
+app.use('/api/auth', require('./routes/auth'));
+
 
 app.get('/search', async (req, res) => {
   const query = req.query.q; // ex. /search?q=pb+dye
@@ -32,12 +34,6 @@ app.get('/search', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
-});
-
-
-
 app.get('/test-db', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT 1 + 1 AS result');
@@ -45,4 +41,8 @@ app.get('/test-db', async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
 });
