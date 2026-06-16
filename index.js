@@ -11,28 +11,7 @@ const db = require('./db');
 //routing
 app.use('/api/courses', require('./routes/courses'));
 app.use('/api/auth', require('./routes/auth'));
-
-
-app.get('/search', async (req, res) => {
-  const query = req.query.q; // ex. /search?q=pb+dye
-
-  try {
-    const response = await fetch(
-      `https://api.golfcourseapi.com/v1/search?search_query=${query}`,
-      {
-        headers: {
-          'Authorization': `Key ${process.env.GOLF_API_KEY}`
-        }
-      }
-    );
-
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to fetch courses' });
-  }
-});
+//app.use('/api/rounds', require('./routes/rounds'));
 
 app.get('/test-db', async (req, res) => {
   try {
